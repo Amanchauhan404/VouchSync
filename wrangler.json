@@ -1,0 +1,12 @@
+{
+  "name": "vouchsync",
+  "compatibility_date": "2024-04-01",
+  "pages_build_output_dir": ".next",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "vouchsync-db",
+      "database_id": "c838f1c1-dca8-472d-9846-42b6eb6d53aa"
+    }
+  ]
+}

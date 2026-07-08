@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-background: #000000;
+    --color-foreground: #ededed;
+    
+    --color-glass-base: rgba(255, 255, 255, 0.03);
+    --color-glass-border: rgba(255, 255, 255, 0.08);
+    --color-glass-glow: rgba(120, 119, 198, 0.15);
+    
+    --color-accent-primary: #5e6ad2;
+    --color-accent-hover: #7b88eb;
+
+    --font-sans: "Inter", var(--font-geist-sans), sans-serif;
+  }
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(120, 119, 198, 0.04), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(120, 119, 198, 0.04), transparent 25%);
+  background-attachment: fixed;
+}
+
+/* Glassmorphism Utilities */
+@layer utilities {
+  .glass-panel {
+    background: var(--color-glass-base);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--color-glass-border);
+    border-radius: 1rem;
+    box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  
+  .glass-panel:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 32px var(--color-glass-glow);
+  }
+
+  .btn-primary {
+    background: var(--color-accent-primary);
+    color: white;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    box-shadow: 0 0 15px transparent;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent-hover);
+    box-shadow: 0 0 20px var(--color-accent-primary);
+    transform: translateY(-1px);
+  }
+}
