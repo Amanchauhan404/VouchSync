@@ -7,6 +7,7 @@
     "directory": ".vercel/output/static",
     "binding": "ASSETS"
   },
+  "workers_dev": true,
   "d1_databases": [
     {
       "binding": "DB",
