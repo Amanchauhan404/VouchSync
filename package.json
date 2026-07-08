@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "npx @cloudflare/next-on-pages",
     "start": "next start",
     "lint": "eslint"
   },
@@ -26,6 +26,7 @@
     "postcss": "^8.4.35",
     "autoprefixer": "^10.4.17",
     "typescript": "^5",
-    "drizzle-kit": "^0.20.17"
+    "drizzle-kit": "^0.20.17",
+    "@cloudflare/next-on-pages": "^1.11.3"
   }
 }
