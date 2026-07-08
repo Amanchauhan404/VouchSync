@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-export default function SubmissionPage({ params }: { params: { userId: string } }) {
+export default function SubmissionPage({ params }: { params: Promise<{ userId: string }> }) {
   const [text, setText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);

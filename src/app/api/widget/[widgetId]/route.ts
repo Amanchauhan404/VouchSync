@@ -4,10 +4,10 @@ export const runtime = 'edge';
 
 export async function GET(
   request: Request,
-  { params }: { params: { widgetId: string } }
+  { params }: { params: Promise<{ widgetId: string }> }
 ) {
   try {
-    const widgetId = params.widgetId;
+    const { widgetId } = await params;
     const origin = request.headers.get('x-vouchsync-origin') || request.headers.get('origin') || '';
 
     // In Next.js App Router on Cloudflare Pages, bindings are via process.env
