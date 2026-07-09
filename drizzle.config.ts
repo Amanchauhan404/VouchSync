@@ -1,7 +1,8 @@
-import type { Config } from 'drizzle-kit';
+import { defineConfig } from 'drizzle-kit';
 
-export default {
+export default defineConfig({
   schema: './src/db/schema.ts',
   out: './drizzle',
-  driver: 'd1', // Used for Cloudflare D1 in drizzle-kit v0.20.x
-} satisfies Config;
+  dialect: 'sqlite',
+  driver: 'd1',
+});

@@ -1,34 +1,35 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import Resend from "next-auth/providers/resend"; // Using Resend for Magic Links (can be swapped)
-// import { DrizzleAdapter } from "@auth/drizzle-adapter"; // For connecting to D1 SQLite
-// import { db } from "./db";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import { drizzle } from "drizzle-orm/d1";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  // adapter: DrizzleAdapter(db), // Uncomment when D1 is fully linked
-  providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-    Resend({
-      from: "no-reply@vouchsync.pages.dev",
-      // apiKey: process.env.RESEND_API_KEY, 
-    }),
-  ],
-  pages: {
-    signIn: "/login",
-  },
-  callbacks: {
-    async session({ session, user }) {
-      // Pass the user ID to the session for D1 database queries
-      if (session.user && user) {
-        session.user.id = user.id;
-      }
-      return session;
+// Drizzle Adapter requires the DB instance, which in Cloudflare Pages is injected into process.env at runtime
+export const { handlers, signIn, signOut, auth } = NextAuth(() => {
+  // We initialize the DB connection inside the NextAuth config factory
+  // so that process.env.DB is available at request time on the Edge.
+  const db = drizzle(process.env.DB as any);
+
+  return {
+    adapter: DrizzleAdapter(db),
+    providers: [
+      Google({
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      }),
+    ],
+    pages: {
+      signIn: "/login",
     },
-  },
-  session: {
-    strategy: "database", // MNC Standard for securely managing sessions
-  },
+    callbacks: {
+      async session({ session, user }) {
+        if (session.user && user) {
+          session.user.id = user.id;
+        }
+        return session;
+      },
+    },
+    session: {
+      strategy: "database", 
+    },
+  };
 });
