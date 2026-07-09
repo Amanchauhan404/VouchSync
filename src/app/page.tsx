@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Star, Zap, Shield, BarChart } from "lucide-react";
 
-export const runtime = 'edge';
-
 export default function Home() {
   return (
     <div className="min-h-screen bg-black text-zinc-100 font-sans selection:bg-zinc-800">
